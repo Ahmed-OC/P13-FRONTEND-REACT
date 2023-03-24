@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-function SignIn() {
+function Login() {
 
   useEffect(() => {
     document.getElementsByTagName("main")[0].classList.add("bg-dark");
@@ -14,7 +14,7 @@ function SignIn() {
     <>
       <section className="sign-in-content">
         <i className="fa fa-user-circle sign-in-icon"></i>
-        <h1>Sign In</h1>
+        <h1>Login</h1>
         <form>
           <div className="input-wrapper">
             <label htmlFor="username">
@@ -39,4 +39,4 @@ function SignIn() {
   )
 }
 
-export default SignIn;
+export default Login;

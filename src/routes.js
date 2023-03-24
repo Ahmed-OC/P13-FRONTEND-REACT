@@ -1,5 +1,5 @@
 import Home from "./pages/Home";
-import SignIn from "./pages/SignIn";
+import Login from "./pages/Login";
 import User from "./pages/User";
 
 const routes = [
@@ -12,8 +12,8 @@ const routes = [
     element: <User />,
   },
   {
-    path: "/sign-in",
-    element: <SignIn />,
+    path: "/login",
+    element: <Login />,
   },
 ];
 
