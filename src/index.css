@@ -195,6 +195,12 @@ body {
   margin-left: 0.25rem;
 }
 
+.error-message {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
 .input-wrapper {
   display: flex;
   flex-direction: column;
