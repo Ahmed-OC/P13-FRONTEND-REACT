@@ -1,11 +1,21 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import {
+  updateJwt,
+  updateFirstName,
+  updateLastName,
+  updateIsLoggedIn
+} from "../features/user/userSlice";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.getElementsByTagName("main")[0].classList.add("bg-dark");
@@ -17,16 +27,29 @@ function Login() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(username, password, rememberMe);
     setError("");
     try {
-      const { data } = await axios.post("user/login" , {
+      const { data } = await axios.post("user/login", {
         email: username,
         password,
       });
       if (rememberMe) {
         localStorage.setItem("token", data.body.token);
       }
+      console.log(data)
+      dispatch(updateJwt(data.body.token));
+      const { data: user } = await axios.post("user/profile", {
+      },
+        {
+          headers: {
+            Authorization: `Bearer ${data.body.token}`,
+          },
+        }
+      );
+      dispatch(updateFirstName(user.body.firstName));
+      dispatch(updateLastName(user.body.lastName));
+      dispatch(updateIsLoggedIn(true));
+      navigate("/profile");
     } catch (err) {
       setError("User not found");
       console.log(err);

@@ -6,12 +6,14 @@ export interface UserState {
   firstName: string;
   lastName: string;
   jwt: string;
+  isLoggedIn: boolean;
 }
 
 const initialState: UserState = {
   firstName: 'Mimo',
   lastName: 'Rayo',
-  jwt: ''
+  jwt: '',
+  isLoggedIn: false,
 };
 
 // The function below is called a thunk and allows us to perform async logic. It
@@ -41,6 +43,9 @@ export const userSlice = createSlice({
     },
     updateJwt: (state, action: PayloadAction<string>) => {
       state.jwt = action.payload
+    },
+    updateIsLoggedIn: (state, action: PayloadAction<boolean>) => {
+      state.isLoggedIn = action.payload
     }
   },
   // The `extraReducers` field lets the slice handle actions defined elsewhere,
@@ -60,7 +65,7 @@ export const userSlice = createSlice({
   // },
 });
 
-export const { updateFirstName, updateLastName, updateJwt } = userSlice.actions;
+export const { updateFirstName, updateLastName, updateJwt, updateIsLoggedIn } = userSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
@@ -68,5 +73,6 @@ export const { updateFirstName, updateLastName, updateJwt } = userSlice.actions;
 export const selectFirstName = (state: RootState) => state.user.firstName;
 export const selectLastName = (state: RootState) => state.user.lastName;
 export const selectJwt = (state: RootState) => state.user.jwt;
+export const selectIsLoggedIn = (state: RootState) => state.user.isLoggedIn;
 
 export default userSlice.reducer;
